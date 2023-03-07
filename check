@@ -1,0 +1,48 @@
+#!/bin/bash
+
+service::config_set() {
+  config::check_or_set $1 $2 $SERVICE_CONFIG "${@:3}"
+}
+
+check() {
+  if [ "$DEBUG" = "true" ]; then
+    log::info "[DEBUG][service]: $SERVICE_CONFIG"
+    cat $SERVICE_CONFIG
+  fi
+
+  service::config_set SERVICE_CHATGPT_WEB_PORT text "服务访问端口" 8080
+
+  local available_auth_types=(
+    "basicauth"
+    "beartoken"
+    "github"
+    "feishu"
+  )
+  service::config_set SERVICE_CHATGPT_WEB_AUTH_TYPE "select" available_auth_types "请选择选择认证类型"
+  case $SERVICE_CHATGPT_WEB_AUTH_TYPE in 
+    basicauth)
+      service::config_set SERVICE_CHATGPT_WEB_USERNAME text "用户名"
+      service::config_set SERVICE_CHATGPT_WEB_PASSWORD text "密码"
+      ;;
+    beartoken)
+      service::config_set SERVICE_CHATGPT_WEB_TOKEN text "令牌(Token)"
+      ;;
+    github | feishu)
+      service::config_set SERVICE_CHATGPT_WEB_CLIENT_ID text "Client ID"
+      service::config_set SERVICE_CHATGPT_WEB_CLIENT_SECRET text "Client SECRET"
+      service::config_set SERVICE_CHATGPT_WEB_REDIRECT_URI text "REDIRECT URI"
+      ;;
+    *)
+      log::error "[$(timestamp)] 未知认证类型: ${SERVICE_CHATGPT_WEB_AUTH_TYPE}"
+      return 1
+      ;;
+  esac
+
+
+  service::config_set SERVICE_CHATGPT_WEB_OPENAI_API_KEY text "OpenAI API Key"
+
+  # service::config_set SERVICE_CHATGPT_WEB_SOCKS_PROXY_HOST text "Socks5 Proxy Host" "" false
+  # service::config_set SERVICE_CHATGPT_WEB_SOCKS_PROXY_PORT text "Socks5 Proxy Port" "" false
+}
+
+check $@
