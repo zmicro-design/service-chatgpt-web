@@ -17,6 +17,7 @@ check() {
     "beartoken"
     "github"
     "feishu"
+    "doreamon"
     "none"
   )
   service::config_set SERVICE_CHATGPT_WEB_AUTH_TYPE "select" available_auth_types "请选择选择认证类型"
@@ -28,7 +29,7 @@ check() {
     beartoken)
       service::config_set SERVICE_CHATGPT_WEB_TOKEN text "令牌(Token)"
       ;;
-    github | feishu)
+    github | feishu | doreamon)
       service::config_set SERVICE_CHATGPT_WEB_CLIENT_ID text "Client ID"
       service::config_set SERVICE_CHATGPT_WEB_CLIENT_SECRET text "Client SECRET"
       service::config_set SERVICE_CHATGPT_WEB_REDIRECT_URI text "REDIRECT URI"
