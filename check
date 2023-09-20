@@ -44,6 +44,7 @@ check() {
 
 
   service::config_set SERVICE_CHATGPT_WEB_OPENAI_API_KEY text "OpenAI API Key"
+  # service::config_set SERVICE_CHATGPT_WEB_OPENAI_API_MODEL text "OpenAI API Model"
 
   # service::config_set SERVICE_CHATGPT_WEB_SOCKS_PROXY_HOST text "Socks5 Proxy Host" "" false
   # service::config_set SERVICE_CHATGPT_WEB_SOCKS_PROXY_PORT text "Socks5 Proxy Port" "" false
