@@ -1,20 +1,35 @@
 version: '3.7'
 
 services:
+  # chatgpt-web:
+  #   restart: always
+  #   image: whatwewant/gzauth:v1
+  #   ports:
+  #     - 0.0.0.0:${SERVICE_CHATGPT_WEB_PORT}:8080
+  #   environment:
+  #     UPSTREAM: http://chatgpt-web-service:3002
+  #     AUTH_TYPE: ${SERVICE_CHATGPT_WEB_AUTH_TYPE}
+  #     # basic auth
+  #     USERNAME: ${SERVICE_CHATGPT_WEB_USERNAME}
+  #     PASSWORD: ${SERVICE_CHATGPT_WEB_PASSWORD}
+  #     # bearer token
+  #     TOKEN: ${SERVICE_CHATGPT_WEB_TOKEN}
+  #     # github, feishu
+  #     CLIENT_ID: ${SERVICE_CHATGPT_WEB_CLIENT_ID}
+  #     CLIENT_SECRET: ${SERVICE_CHATGPT_WEB_CLIENT_SECRET}
+  #     REDIRECT_URI: ${SERVICE_CHATGPT_WEB_REDIRECT_URI}
+
   chatgpt-web:
     restart: always
-    image: whatwewant/gzauth:v1
-    ports:
-      - 0.0.0.0:${SERVICE_CHATGPT_WEB_PORT}:8080
+    image: whatwewant/connect-doreamon:v1
+    # ports:
+    #   - 0.0.0.0:${SERVICE_CHATGPT_WEB_PORT}:8080
     environment:
+      SECRET_KEY: ${SERVICE_CHATGPT_WEB_SECRET_KEY}
+      #
       UPSTREAM: http://chatgpt-web-service:3002
       AUTH_TYPE: ${SERVICE_CHATGPT_WEB_AUTH_TYPE}
-      # basic auth
-      USERNAME: ${SERVICE_CHATGPT_WEB_USERNAME}
-      PASSWORD: ${SERVICE_CHATGPT_WEB_PASSWORD}
-      # bearer token
-      TOKEN: ${SERVICE_CHATGPT_WEB_TOKEN}
-      # github, feishu
+      # doreamon
       CLIENT_ID: ${SERVICE_CHATGPT_WEB_CLIENT_ID}
       CLIENT_SECRET: ${SERVICE_CHATGPT_WEB_CLIENT_SECRET}
       REDIRECT_URI: ${SERVICE_CHATGPT_WEB_REDIRECT_URI}
@@ -23,6 +38,9 @@ services:
     restart: always
     image: chenzhaoyu94/chatgpt-web:${SERVICE_CHATGPT_WEB_IMAGE_VERSION}
     environment:
+      #
+      SECRET_KEY: ${SERVICE_CHATGPT_WEB_SECRET_KEY}
+      # 
       OPENAI_API_KEY: ${SERVICE_CHATGPT_WEB_OPENAI_API_KEY}
       #
       OPENAI_ACCESS_TOKEN: ${SERVICE_CHATGPT_WEB_OPENAI_ACCESS_TOKEN}
