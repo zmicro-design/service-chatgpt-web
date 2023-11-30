@@ -35,12 +35,13 @@ services:
 
   chatgpt-web-service:
     restart: always
-    image: chenzhaoyu94/chatgpt-web:${SERVICE_CHATGPT_WEB_IMAGE_VERSION}
+    image: whatwewant/chatgpt-web:${SERVICE_CHATGPT_WEB_IMAGE_VERSION}
     environment:
       #
       SECRET_KEY: ${SERVICE_CHATGPT_WEB_SECRET_KEY}
       # 
       OPENAI_API_KEY: ${SERVICE_CHATGPT_WEB_OPENAI_API_KEY}
+      OPENAI_API_MODEL: ${SERVICE_CHATGPT_WEB_OPENAI_API_MODEL}
       #
       OPENAI_ACCESS_TOKEN: ${SERVICE_CHATGPT_WEB_OPENAI_ACCESS_TOKEN}
       OPENAI_API_BASE_URL: ${SERVICE_CHATGPT_WEB_OPENAI_API_BASE_URL}
